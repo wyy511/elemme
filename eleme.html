@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-a="eleme" perf-error="desktop/" class="ng-scope">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>饿了么</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      body,button,input,select,textarea{
+        font: 400 1em/1.5 PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
+      }
+      html{
+        background: #fff;
+        box-sizing: border-box;
+        color: #333;
+        text-rendering: optimizeLegibility;
+      }
+      .fetchtakeout-dialog-body{
+        padding: 15px;
+      }
+      div{
+        display: block;
+      }
+      .fetchtakeout-dialog{
+        font-size: 12px;
+        width: 360px;
+        position: fixed;
+        border: 1px solid gray;
+        background: #fff;
+        border-radius: 5px;
+      }
+      .fetchtakeout-wrapper{
+        position: relative;
+        margin: 0 auto 10px;
+        padding-top: 15px;
+        width: 300px;
+        color: #555;
+        box-shadow: 1px 1px 2px #ddd;
+        background-color: #dbf0fa;
+      }
+      .fetchtakeout-badge{
+      display: block;
+      width: 186px;
+      height: 188px;
+      margin: 0 auto;
+      background: url('https://faas.elemecdn.com/desktop/media/img/fetch-takeout-sprites.2c51a3.png') 0 -120px no-repeat;
+  }   h2{font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
+      font-weight: 400;
+      padding: 0;
+      font-size: 1.5em;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: 0.83em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+      }
+      .fetchtakeout-btn {
+      display: block;
+      cursor: pointer;
+      margin: -45px auto 15px;
+      width: 271px;
+      height: 40px;
+      border: 0;
+      background: url('https://faas.elemecdn.com/desktop/media/img/fetch-takeout-sprites.2c51a3.png') no-repeat;
+      user-select:none;
+      -webkit-user-select:none;
+      line-height: normal;
+    }
+    button{
+      font: 400 1em/1.5 PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
+    }
+    .fetchtakeout-rules{
+      position: relative;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #777;
+      background: #dbf0fa;
+      overflow: hidden;
+      font-size: 12px;
+    }
+    .fetchtakeout-rules:before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 5px;
+      display: block;
+      height: 7px;
+      width: 40px;
+      background-color: #ccc;
+  }
+  .fetchtakeout-rules:after {
+      left: auto;
+      right: 15px;
+      content: "";
+      position: absolute;
+      top: 5px;
+      display: block;
+      height: 7px;
+      width: 40px;
+      background-color: #ccc;
+    }
+    .fetchtakeout-emptytext {
+      position: absolute;
+      bottom: 40px;
+      right: 0;
+      font-size: 73px;
+      line-height: 1em;
+      color: #fff;
+  }
+  .ng-hide {
+      display: none !important;
+  }
+  .fetchtakeout-list {
+      margin: 0 10px;
+      padding: 5px;
+      height: 180px;
+      list-style: none;
+  }
+  ul,menu,dir {
+      display: block;
+      -webkit-margin-before: 1em;
+      -webkit-margin-after: 1em;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 40px;
+  }
+  .fetchtakeout-wrapper .selected {
+      color: #fe5a23;
+      font-weight: 700;
+      background: url('https://faas.elemecdn.com/desktop/media/img/fetch-takeout-sprites.2c51a3.png') 0 -320px no-repeat;
+      height: 19px;
+      line-height: 19px;
+  }
+  .fetchtakeout-list li {
+      padding-left: 3px;
+      height: 18px;  }
+    li {
+      display: list-item;
+      text-align: -webkit-match-parent;
+  }
+  *, :after, :before{
+    box-sizing: inherit;
+  }
+    </style>
+  </head>
+
+  <body>
+    <div class="fetchtakeout-dialog-body">
+      <div class="fetchtakeout-wrapper">
+      <h2 class="fetchtakeout-badge"></h2>
+      <button class="fetchtakeout-btn" ng-click="dice()" ng-class="{active:btnActive}"></button>
+      <div class="fetchtakeout-rules">
+        随机到最小数字的人去拿外卖
+      </div>
+      <div class="fetchtakeout-emptytext" ng-show="diceList.length===0">↓Start</div>
+      <ul class="fetchtakeout-list">
+
+      </ul>
+    </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    window.onload = function(){
+      // alert("页面加载完成");
+      var min = 0;
+      var btn = document.querySelector('.fetchtakeout-btn');
+      btn.addEventListener('click',function(){
+        // alert("送外卖");
+        //得到随机数
+        var num = parseInt(Math.random()*100);//数学对象
+        //alert(num);
+        //将生成的随机数字符串加到HTML上
+        var list = document.querySelector('.fetchtakeout-list');
+        // console.log(list);
+        var oli = document.createElement('li');
+
+
+        //将为人民服务放到最小数上
+        if(min == 0)
+        {
+          min = num ;
+          var message = "扔出了一个" + num;
+            oli.className = "ng-bingding ng-scope selected";
+        }
+        else {
+          if (num < min) {
+            min = num ;//为人民服务
+            var message = "扔出了一个" + num ;
+            //收回上一个为人民服务的类名
+             var lastSelectedLi = document.querySelector('.selected');
+             if (lastSelectedLi) {
+               lastSelectedLi.className = "";
+             }
+            oli.className = "ng-bingding ng-scope selected";
+          }else {
+            var message = "扔出了一个" + num ;
+            //min 扔出一个
+          }
+        }
+        oli.appendChild(document.createTextNode(message));
+        list.appendChild(oli);
+      },false);
+  window.addEventListener('keydown',function(e){
+    var code=e.keyCode;
+    if (code = 32) {
+      btn.click();
+    }
+  },false);
+  }/*页面加载*/
+  </script>
+</html>
